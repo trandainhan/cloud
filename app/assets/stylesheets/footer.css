@@ -1,0 +1,36 @@
+/* Footer
+ -------------------------------------------------- */
+
+.footer {
+	text-align: left;
+	padding-left: 40px;
+	padding-top: 40px;
+	bottom: 0px;
+	width: 100%;
+	clear: both;
+	position: relative;	
+	height: 150px;
+}
+
+.footer p {
+	margin-bottom: 0;
+	color: #777;
+	margin-right: 20px;
+}
+
+.footer p a {
+	font-size: 20px;
+}
+
+.footer-links {
+	margin: 10px 0;
+}
+
+.footer-links li {
+	display: inline;
+	padding: 0 2px;
+}
+
+.footer-links li:first-child {
+	padding-left: 0;
+}
