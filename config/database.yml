@@ -20,8 +20,8 @@ development:
   encoding: utf8
   database: cloudDB
   username: root
-  password: admin
-  host: localhost
+  password: abcdefghikz
+  host: 172.28.182.220
   port: 3306
 
 # Warning: The database defined as "test" will be erased and
