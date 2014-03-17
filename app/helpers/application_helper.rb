@@ -4,7 +4,7 @@ module ApplicationHelper
     RUN_ALONE   = "0"
     RUN_ON_SYS  = "1"	
     @@server_name 	= 'http://172.28.182.220:3000'
-	@@mode = "1"
+		@@mode = "1"
 	def hpcc_register(username,pass)
 		if(@@mode.to_i == RUN_ALONE.to_i)
 			ret = {"ret"=>"OK","data"=>""} 
@@ -281,7 +281,7 @@ module ApplicationHelper
 		end
 	end
 
-	def hpcc_vms_start_group_machine(username, pass, groupid)
+	def hpcc_vms_start_group_machine(username, pass, groupid, isoid)
 		if(@@mode.to_i == RUN_ALONE.to_i)
 			ret =  {"ret" => "OK","errcode" => "","data" => ""}
 			return ret
@@ -290,7 +290,7 @@ module ApplicationHelper
 			http = Net::HTTP.new(uri.host, uri.port)
 			http.use_ssl = false
 			request = Net::HTTP::Post.new("/vm/allocate/group")
-			data = {"username" => username.to_s, "password" => pass.to_s, "vmid" => vm_id}
+			data = {"username" => username.to_s, "password" => pass.to_s, "groupid" => groupid.to_s, "isoid" => isoid.to_s}
 			data = data.to_json
 			request.set_form_data({'data' => data})
 			response = http.request(request)

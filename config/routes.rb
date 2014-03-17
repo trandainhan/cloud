@@ -1,6 +1,15 @@
 Cloud::Application.routes.draw do
   root to: 'staticspage#home'
-  get "staticspage/home"
+  resource :users
+  get '/users/sign_up' => "users#new"
+  get '/users/sign_in' => "users#new_session"
+  post '/users/sign_in' => "users#create_session"
+  get '/machines/register' => "machines#register"
+  post '/machines/register' => "machines#create"
+  post '/single_machines/handle_action' => "machines#single_machine_handle_action"
+  get '/single_machines/index' => "machines#single_machine_index"
+  get '/groups/index' => "machines#groups_index"
+  post '/groups/handle_action' => "machines#groups_handle_action"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

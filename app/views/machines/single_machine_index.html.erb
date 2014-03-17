@@ -1,0 +1,29 @@
+<h2>Machine List</h2>
+<% if @errors.present? %>
+	<h2><%= @errors %></h2>
+<% else %>
+	<% @user_vm_list.each do |vm| %>
+		<% vm_detail = VmType.find(vm["vm_type"]) %>
+		<%= form_tag( single_machines_handle_action_path, method: :post) do %>
+			<%= hidden_field_tag :vm_id, vm["vm_id"] %>
+			<ul>
+				<li>Name: <%= vm_detail["name"] %></li>
+				<li>Ram: <%= vm_detail["ram"] %></li>
+				<li>CPU: <%= vm_detail["cpus"] %> core</li>
+				<li>Storage: 100 GB</li>
+				<li>State: <%= vm["state"] %></li>
+				
+				<div>
+					<h4>Choose ISO</h4>
+					<% @iso_list.each do |iso| %>
+						<input type= "radio" name= "iso_id" value = <%= iso["iso_id"]%> > <%= iso["iso_name"] %> <br>
+					<% end %>
+				</div>
+				
+			</ul>
+			<input type="submit" value="Start" id="start" name="commit"/>
+			<input type="submit" value="Hibernate" id="hibernate" name="commit"/>
+			<input type="submit" value="Stop" id="stop" name="commit"/>
+		<% end %>
+	<% end %>
+<% end %>

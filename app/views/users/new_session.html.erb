@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	</head>
+	<body>
+		<%= form_tag( users_sign_in_path, method: :post) do %>
+		<h2>Login</h2>
+		<div>
+			<label>Username:</label>
+			<%= text_field_tag :username %>
+		</div>
+		<div>
+			<label>Password:</label>
+			<%= password_field_tag :password %>
+		</div>
+		
+		<button>Submit</button>
+		<% end %>
+	</body>
+</html>

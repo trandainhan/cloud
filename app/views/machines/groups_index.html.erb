@@ -1,0 +1,34 @@
+<h2>Machine List</h2>
+<% if @errors.present? %>
+	<h2><%= @errors %></h2>
+<% else %>
+	<% @user_group_list.each do |g| %>
+		<% vm_detail = VmType.find(g["type_id"]) %>
+		<%= form_tag( groups_handle_action_path, method: :post) do %>
+			<%= hidden_field_tag :group_id, g["group_id"] %>
+			<h3>Group Detail</h3>
+			<ul>
+				<li>Name: <%= g["group_name"] %></li>
+				<li>Number Of Machine: <%= g['numvms'] %></li>
+				<li>State: <%= g['state'] %></li>
+			</ul>
+			<h3>Machine Detail</h3>
+			<ul>
+				<li>Ram: <%= vm_detail["ram"] %></li>
+				<li>CPU: <%= vm_detail["cpus"] %> core</li>
+				<li>Storage: 100 GB</li>
+			</ul>
+				<div>
+					<h4>Choose ISO</h4>
+					<% @iso_list.each do |iso| %>
+						<input type= "radio" name= "iso_id" value = <%= iso["iso_id"]%> > <%= iso["iso_name"] %> <br>
+					<% end %>
+				</div>
+				
+			</ul>
+			<input type="submit" value="Start" id="start" name="commit"/>
+			<input type="submit" value="Hibernate" id="hibernate" name="commit"/>
+			<input type="submit" value="Stop" id="stop" name="commit"/>
+		<% end %>
+	<% end %>
+<% end %>

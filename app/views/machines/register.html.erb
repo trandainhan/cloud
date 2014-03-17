@@ -1,0 +1,27 @@
+<h2>features</h2>
+<% unless @vm_list.empty? %>
+	<% @vm_list.each do |vm| %>
+		<%= form_tag( machines_register_path, method: :post) do %>
+			<%= hidden_field_tag :vm_id, vm["id"] %>
+			<%= hidden_field_tag :vm_name, vm["name"] %>
+			<ul>
+				<li>Name: <%= vm["name"] %></li>
+				<li>Ram: <%= vm["ram"] %></li>
+				<li>CPU: <%= vm["cpus"] %> core</li>
+				<li>Storage: 100 GB</li>
+				<li>Price: $10</li>
+			</ul>
+			<div>
+				<input type= "radio" name= "machine_type" value= 1 > Single
+				<input type= "radio" name= "machine_type" value= 2 > Group
+				<br>
+				Group Number: <input type= 'text' name='group_num'>
+				<br>
+				Group Name: <input type= 'text' name='group_name'>
+			</div>
+			<button>Choose</button>
+		<% end %>
+	<% end %>
+<% else %>
+	<h2>No Machine Available </h2>
+<% end %>

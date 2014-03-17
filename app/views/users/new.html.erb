@@ -1,0 +1,17 @@
+<h2>Sign up</h2>
+<%= form_tag( users_path, method: :post) do %>
+<span><%= @errors %></span>
+<div>
+  <label>Username:</label>
+  <%= text_field_tag :username %>
+</div>
+<div>
+  <label>Password:</label>
+  <%= password_field_tag :password%>
+</div>
+<div>
+  <label>Password Confirmation</label>
+  <%= password_field_tag :password_confirmation %>
+</div>
+<button>Submit</button>
+<% end %>
