@@ -14,6 +14,38 @@
 							<a href = "/#contact" id = "btnContactInHeader">Contact</a>
 						</li>
 					</ul>
+					<% if signed_in?%>
+					<ul class="nav navbar-nav navbar-right">
+						<% if admin_signed %>
+							<li>
+								<%= link_to "Cloud Admin", cloud_admin_path%>
+							</li>	
+						<% end %>
+						<li>
+							<%= link_to "#{current_user.name}", users_admin_path%>
+						</li>
+						<li>
+							<%= link_to "Sign out", destroy_user_session_path, method: "delete"%>
+						</li>
+					</ul>
+					<% else %>
+					<ul class="nav navbar-nav navbar-right pull-right">
+						<%= form_tag(users_sign_in_path, :html => { :class => "navbar-form navbar-right"}, method: "POST") do |f| %>
+	            <div class="form-group  pull-left">
+	              <%= text_field_tag :username, "" ,{ autofocus: true, class: 'form-control', placeholder: "Email"} %>
+	            </div>
+	            <div class="form-group  pull-left">
+	              <%= password_field_tag :password,"", {class: 'form-control', placeholder: "Password"} %>
+	            </div>
+	            <%= submit_tag "Sign in", class: "btn btn-default pull-right" %>
+	            <%# if devise_mapping.rememberable? -%>
+								<div >
+									<%#= f.check_box :remember_me %> <%#= f.label :remember_me %>
+								</div>
+							<%# end -%>
+	          <% end -%>
+					</ul>
+					<% end %>
 				</div>
 			</div>
 		</div>

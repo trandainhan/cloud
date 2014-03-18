@@ -1,28 +1,39 @@
 module PricingHelper
-	# => calculate cost of a single machine only
+	# update machine cost
+	def update_machine_cost
+		VmType.all.each do |m|
+			new_cost = machine_cost(m.id)[:ret] == 'OK' ? machine_cost(m.id)[:data] : m.price
+			m.update_attributes({price: new_cost})
+		end
+	end
+	# calculate cost of a single machine only
 	def machine_cost(machine_id)
-		machine_ratio= Machine.find(machine_id).ratio
-		unit_value = ServiceType.find_by_type_service('machine').unit_value
+		machine_ratio= VmType.find(machine_id).ratio
+		unit_value = ServiceType.find_by_name('machine').unit_value
 		if machine_ratio.present? &&  unit_value.present?
-			machine_ratio * unit_value 
+			{ret: "OK", data: machine_ratio * unit_value}
 		else
-			0
+			{ret: "Error"}
 		end
 	end
 
-	#= calculate cost of storage only
+	# total cost of a single machine includes cost of the iso image it uses
+	def total_cost(machine_id, iso_id)
+		machine_cost = machine_cost(machine_id)
+		iso_ratio = Iso.find(iso_id).ratio
+		if machine_cost[:ret] == "OK" && iso_ratio.present?
+			{ret: "OK", data: machine_cost[:data]*iso_ratio}
+		else
+			{ret: "Error"}
+		end
+	end
+
+	# calculate cost of storage only
 	def storage_cost(storage_id)
-		set_storage_ratio # update_storage_ratio
-		storage_ratio= Storage.find(storage_id).ratio
-		unit_value = ServiceType.find_by_type_service('storage').unit_value
-		if storage_ratio.present? &&  unit_value.present?
-			storage_ratio * unit_value
-		else
-			0
-		end
+		
 	end
 
-	# => update storage ratio base on it's capacity
+	# update storage ratio base on it's capacity
 	def set_storage_ratio
 		unit_value = ServiceType.find_by_type_service('storage').unit_value
 		Storage.all.each do |s|
@@ -34,23 +45,12 @@ module PricingHelper
 		end
 	end
 
-	# => calculate cost of datatransfer, under implementation
+	# calculate cost of datatransfer, under implementation
 	def datatransfer_cost(datatransfer_id)
-		return 0
+		
 	end
 
-	# => total cost, or image cost
-	def total_cost(image)
-		os_ratio = 1
-		if image.operating_system_id.present?
-			r = OperatingSystem.find(image.operating_system_id).ratio # => find os ratio
-			os_ratio= r unless r.nil?
-		end
-		machine_cost(image.machine_id)*os_ratio + storage_cost(image.storage_id)+ datatransfer_cost(image.data_transfer_id)
-	end
-
-	def present_cost(image)
-		total_cost= total_cost(image)
+	def present_cost(total_cost)
 		blue_shift_start= Time.parse(Shift.blue_shift_start)
 		blue_shift_end= Time.parse(Shift.blue_shift_end)
 		@transaction= current_user.transactions.where(image_id = image.id).last
@@ -69,13 +69,6 @@ module PricingHelper
 			return total_cost* 0.8 * in_blue_time + total_cost * out_blue_time
 		end
 		return total_cost * used_time
-	end
-
-	# => update static image cost base on db
-	def update_static_image_cost
-		StaticImage.all.each do |i|
-			i.update_attributes!({cost: total_cost(i)})
-		end
 	end
 
 	# => cost on demand or reserved

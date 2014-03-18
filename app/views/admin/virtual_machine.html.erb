@@ -1,0 +1,21 @@
+<div>
+	<table class = 'table table-striped'>
+		<tr>
+			<th>Name</th>
+			<th>CPU</th>
+			<th>Ram</th>
+			<th>Ratio</th>
+			<th>Price</th>
+		</tr>
+		<% @vms.each do |vm| %>
+			<tr>
+				<td><%= vm.name %></td>
+				<td><%= vm.cpus %></td>
+				<td><%= vm.ram %></td>
+				<td><%= vm.ratio %></td>
+				<td><%= vm.price %></td>
+			</tr>
+		<% end %>
+
+	</table>
+</div>

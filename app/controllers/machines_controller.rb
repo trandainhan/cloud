@@ -1,6 +1,8 @@
 class MachinesController < ApplicationController
 	layout 'users_operation'
 	def register
+		#update machine price
+		update_machine_cost
 		# get all vms_type from server
 		response = hpcc_vms_get_type()
 		@vm_list = response["ret"] == "OK" ? response["data"] : {}
@@ -22,7 +24,7 @@ class MachinesController < ApplicationController
 					@iso_list = getiso_response["data"]
 				else
 					# request failed, server error		
-					@errors = "Get Virtual Machine Or ISO Image Failed"	
+					@errors = "Get Virtual Machine Or ISO Image Failed: " + getvm_response["errcode"]	+ getiso_response['errcode']
 				end
 			else
 				# request failed, server error	
@@ -40,7 +42,7 @@ class MachinesController < ApplicationController
 					@iso_list = getiso_response["data"]
 				else
 					# request failed, server error		
-					@errors = "Get Group Of Virtual Machine Or ISO Image Failed"	
+					@errors = "Get Group Of Virtual Machine Or ISO Image Failed"	+ getvm_response["errcode"]	+ getiso_response['errcode']
 				end
 			else
 				# request failed, server error	
@@ -60,7 +62,7 @@ class MachinesController < ApplicationController
 			@iso_list = getiso_response["data"]
 		else 
 			# request failed, server error	
-			@errors = "Get Virtual Machine Or ISO Image Failed"
+			@errors = "Get Virtual Machine Or ISO Image Failed" + getvm_response["errcode"]	+ getiso_response['errcode']
 		end
 	end
 
@@ -97,7 +99,7 @@ class MachinesController < ApplicationController
 			# render json: @user_group_list
 		else 
 			# request failed, server error	
-			@errors = "Get Group Of Virtual Machine Or ISO Image Failed"
+			@errors = "Get Group Of Virtual Machine Or ISO Image Failed" + getvm_response["errcode"]	+ getiso_response['errcode']
 		end
 	end
 

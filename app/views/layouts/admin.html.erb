@@ -1,1 +1,32 @@
-<!--co side bar giong nhu trang user, nhet template vo-->
+<!DOCTYPE html>
+<html style="width:100%; height:100%">
+<%= stylesheet_link_tag    "application"%>
+<body style="width:100%; height:100%">
+
+<div id="container" style="width:100%; height:100%">
+
+<div id="header" style="background-color:#008B8B;">
+<h1 style="margin-bottom:0;">Main Title</h1></div>
+
+<div id="menu" style="background-color:#20B2AA;height:100%;width:20%;float:left;">
+<b>Sidebar</b>
+<br>
+<a href="/admin/virtual_machine">Virtual Machine</a>
+<br>
+<a href="/admin/users">Users</a>
+<br>
+<a href="/admin/shift">Shift</a>
+<br>
+<a href="/admin/service_type">Service Type</a>
+<br>
+<a href="/admin/iso_image">ISO Image</a>
+</div>
+
+<div id="content" style="background-color:#EEEEEE;height:100%;width:80%;float:left;">
+<%= yield %>
+</div>
+
+</div>
+ 
+</body>
+</html>

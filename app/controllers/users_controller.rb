@@ -13,10 +13,10 @@ class UsersController < ApplicationController
 		signin_response = hpcc_signin(params[:username], params[:password])# send request to server
 		if signin_response["ret"] == "OK"
 			# redirect to user page
-			redirect_to '/users'
+			redirect_to '/users/home'
 		else
 			#error
-			render text: "errors"
+			render text: "errors: "+ signin_response["errcode"]
 		end
 	end
 
@@ -29,19 +29,23 @@ class UsersController < ApplicationController
 				signin_response = hpcc_signin(params[:username], params[:password])# send request to server
 				if signin_response["ret"] == "OK"
 					# redirect to user page
-					redirect_to '/users'
+					redirect_to '/users/home'
 				else
 					#error
-					render text: "errors"
+					render text: "errors: "+ signin_response["errcode"]
 				end
 			else
 				#render 500 Internal Error
-				render text: "500 Internal Error"
+				render text: "500 Internal Error: " + reg_response['errcode']
 			end
 		else
 			@errors = is_validated[:detail]
 			render 'new'
 		end
+	end
+
+	def home
+		
 	end
 
 	def show
