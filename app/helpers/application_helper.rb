@@ -4,9 +4,10 @@ module ApplicationHelper
     RUN_ALONE   = "0"
     RUN_ON_SYS  = "1"	
     @@server_name 	= 'http://172.28.182.220:3000'
-		@@mode = "1"
+		@@mode = "0"
 	def hpcc_register(username,pass)
 		if(@@mode.to_i == RUN_ALONE.to_i)
+			User.create!({username: username, activated: 1, role: 2})
 			ret = {"ret"=>"OK","data"=>""} 
 			return ret
 		else
@@ -101,9 +102,9 @@ module ApplicationHelper
 			ret = {	"ret"=>  "OK",
 					"errcode"=>  "",
 					"data"=> [
-      					{"vm_id"=> "1","vm_type"=> "1",
+      					{"vm_id"=> 1,"vm_type"=> 1,
       						"state"=> "0","iso_id"=> "2"},
-      					{"vm_id"=> "2","vm_type"=> "0",
+      					{"vm_id"=> 2,"vm_type"=> 2,
       						"state"=> "0","iso_id"=> "0"}]}
 			return ret
 		else
@@ -174,10 +175,10 @@ module ApplicationHelper
 			ret = {   "ret"=> "OK",
 				      "errcode"=>  "",
 				      "data"=> [
-				      {"id"=> "1","name"=>  "'SMALL VM'"  ,"cpus"=> "1","ram"=> "2048"},
-				      {"id"=> "2","name"=>  "'MEDIUM VM'" ,"cpus"=> "2","ram"=> "4096"},
-				      {"id"=> "3","name"=>  "'LARGE VM'"  ,"cpus"=> "4","ram"=> "8192"},
-				      {"id"=> "4","name"=>  "'XTREME VM'" ,"cpus"=> "8","ram"=> "16384"}]}
+				      {"id"=> 1,"name"=>  "'SMALL VM'"  ,"cpus"=> "1","ram"=> "2048"},
+				      {"id"=> 2,"name"=>  "'MEDIUM VM'" ,"cpus"=> "2","ram"=> "4096"},
+				      {"id"=> 3,"name"=>  "'LARGE VM'"  ,"cpus"=> "4","ram"=> "8192"},
+				      {"id"=> 4,"name"=>  "'XTREME VM'" ,"cpus"=> "8","ram"=> "16384"}]}
 			return ret
 		else
 			uri = URI.parse(@@server_name)

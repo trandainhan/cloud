@@ -28,11 +28,11 @@
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
-            <li class="active"><a href="/users/home">Dashboard</a></li>
-            <li><a href="/machines/register">Register New Machine</a></li>
-            <li><a href="/single_machines/index">Single Machines</a></li>
-            <li><a href="/groups/index">Groups</a></li>
-            <li><a href="#">History</a></li>
+            <li id="dashboard" class="<%= 'active' if session[:active] == 'home' %>"><a href="/users/home">Dashboard</a></li>
+            <li id="register" class="<%= 'active' if session[:active] == 'register' %>"><a href="/machines/register">Register New Machine</a></li>
+            <li id="single" class="<%= 'active' if session[:active] == 'single' %>"><a href="/single_machines/index">Single Machines</a></li>
+            <li id="groups" class="<%= 'active' if session[:active] == 'groups' %>"><a href="/groups/index">Groups</a></li>
+            <li id="history" class="<%= 'active' if session[:active] == 'history' %>"><a href="/users/history">History</a></li>
           </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
@@ -42,15 +42,6 @@
     </div>
 
     <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
-      <script type="text/javascript">
-        $(".nav > li").click(function(){
-          if (!$(this).hasClass("active")){
-            $("li.active").removeClass("active");
-
-            $(this).addClass("active");
-          }
-        })
-      </script>
   </body>
 
 </html>

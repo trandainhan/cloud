@@ -4,10 +4,13 @@
     width: 22%;
 }
 
-.pricing-root .container-fluid {
+.pricing-root {
     background:#fff;
 	text-align: center;
-    color: #fff;
+    color: #428bca;
+}
+.page-header{
+    text-align: left;
 }
 .container {
     overflow: hidden;

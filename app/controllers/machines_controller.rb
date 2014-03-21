@@ -2,6 +2,7 @@ class MachinesController < ApplicationController
 	before_action :signed_in_user
 	layout 'users_operation'
 	def register
+		session[:active] = 'register'
 		#update machine price
 		update_machine_cost
 		# get all vms_type from server
@@ -54,6 +55,7 @@ class MachinesController < ApplicationController
 	end
 
 	def single_machine_index
+		session[:active] = 'single'
 		# get all vm of current user
 		getvm_response = hpcc_vms_get_single_machine(current_user_name, current_user_password)
 		# get all iso image
@@ -90,6 +92,7 @@ class MachinesController < ApplicationController
 	end
 	
 	def groups_index
+		session[:active] = 'groups'
 		# get all groups of current user
 		getgroup_response = hpcc_vms_get_group_machine(current_user_name, current_user_password)
 		# get all iso image

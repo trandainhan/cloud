@@ -57,7 +57,7 @@ class UsersController < ApplicationController
 	end
 
 	def home
-		
+		session[:active] = 'home'
 	end
 
 	def show
@@ -77,7 +77,7 @@ class UsersController < ApplicationController
 	end
 
 	def history
-		
+		session[:active] = 'history'
 	end
 
 end
