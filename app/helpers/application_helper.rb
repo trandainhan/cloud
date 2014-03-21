@@ -4,7 +4,7 @@ module ApplicationHelper
     RUN_ALONE   = "0"
     RUN_ON_SYS  = "1"	
     @@server_name 	= 'http://172.28.182.220:3000'
-		@@mode = "0"
+		@@mode = "1"
 	def hpcc_register(username,pass)
 		if(@@mode.to_i == RUN_ALONE.to_i)
 			ret = {"ret"=>"OK","data"=>""} 
@@ -36,6 +36,7 @@ module ApplicationHelper
 
 			# return true
 		else
+			p 'zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz'
 			uri = URI.parse(@@server_name)
 			http = Net::HTTP.new(uri.host, uri.port)
 			http.use_ssl = false
@@ -343,15 +344,16 @@ module ApplicationHelper
 		end
 	end	
 
-	 def resource_name
-	    :user
-	  end
-
-	  def resource
-	    @resource ||= User.new
-	  end
-
-	  def devise_mapping
-	    @devise_mapping ||= Devise.mappings[:user]
-	  end
+	def get_class_from_vm_id(vm_id)
+		case vm_id
+		when 1
+			'tiny'
+		when 2
+			'small'
+		when 3
+			'medium'
+		when 4
+			'pro'
+		end
+	end
 end

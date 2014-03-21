@@ -41,7 +41,7 @@ class UsersController < ApplicationController
 				signin_response = hpcc_signin(params[:username], params[:password])# send request to server
 				if signin_response["ret"] == "OK"
 					# redirect to user page
-					redirect_to '/users/home'
+					render 'home'
 				else
 					#error
 					render text: "errors: "+ signin_response["errcode"]

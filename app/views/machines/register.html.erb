@@ -1,27 +1,32 @@
-<h2>features</h2>
-<% unless @vm_list.empty? %>
-	<% @vm_list.each do |vm| %>
-		<%= form_tag( machines_register_path, method: :post) do %>
-			<%= hidden_field_tag :vm_id, vm["id"] %>
-			<%= hidden_field_tag :vm_name, vm["name"] %>
-			<ul>
-				<li>Name: <%= vm["name"] %></li>
-				<li>Ram: <%= vm["ram"] %></li>
-				<li>CPU: <%= vm["cpus"] %> core</li>
-				<li>Storage: 100 GB</li>
-				<li>Price: $<%= vm["price"] %></li>
-			</ul>
-			<div>
-				<input type= "radio" name= "machine_type" value= 1 > Single
-				<input type= "radio" name= "machine_type" value= 2 > Group
-				<br>
-				Group Number: <input type= 'text' name='group_num'>
-				<br>
-				Group Name: <input type= 'text' name='group_name'>
-			</div>
-			<button>Choose</button>
-		<% end %>
-	<% end %>
-<% else %>
-	<h2>No Machine Available </h2>
-<% end %>
+<div class = 'pricing-root'>
+  <h2 class="page-header">Single Machines Description</h2>
+  <div class="container-fluid">
+    <div class="row-fluid">
+    	<% unless @vm_list.empty? %>
+		  <% @vm_list.each do |vm| %>
+		    <%= form_tag( machines_register_path, method: :post) do %>
+		      <%= hidden_field_tag :vm_id, vm["id"] %>
+		      <%= hidden_field_tag :vm_name, vm["name"] %>
+		      <div class="spancustomize span3 <%= get_class_from_vm_id(vm["id"]) %> ">
+		        <div class="pricing-table-header-<%= get_class_from_vm_id(vm["id"]) %>">
+		          <h2>$<%= vm["price"] %>/hour</h2>
+		          <h3><%= vm["name"] %></h3>
+		        </div>
+		        <div class="pricing-table-features">
+		          <p><strong>100 GB</strong> Disk Space</p>
+		          <p><strong><%= vm["ram"] %> MB</strong> Memory</p>
+		          <p>CPU <strong><%= vm["cpus"] %> </strong> cores</p>
+		        </div>
+		        <div class="pricing-table-signup-tiny">
+		          <p><a href="#">Choose</a></p>
+		          <!-- <button>Choose</button> -->
+		        </div>
+		      </div>
+		    <% end %>
+		  <% end %>
+			<% else %>
+		  	<h2>No Machine Available </h2>
+			<% end %>
+  	</div><!--row-fluid-->
+	</div>
+</div

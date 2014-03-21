@@ -1,5 +1,8 @@
 /* Styles for Pricing Tables */
 
+.row-fluid .spancustomize{
+    width: 22%;
+}
 
 .pricing-root .container-fluid {
     background:#fff;
