@@ -7,6 +7,10 @@ module SessionHelper
 		!current_user.nil?
 	end
 
+	def admin_signed?
+		current_user.role == 1 
+	end
+
 	def current_user? (user)
 		user == current_user
 	end
@@ -14,7 +18,7 @@ module SessionHelper
 	def signed_in_user
 		unless signed_in?
 			store_location
-			redirect_to signin_path, notice: "Please sign in"
+			redirect_to users_sign_in_path, notice: "Please sign in"
 		end
 	end
 

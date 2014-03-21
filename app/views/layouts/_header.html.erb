@@ -16,16 +16,16 @@
 					</ul>
 					<% if signed_in?%>
 					<ul class="nav navbar-nav navbar-right">
-						<% if admin_signed %>
+						<% if admin_signed? %>
 							<li>
-								<%= link_to "Cloud Admin", cloud_admin_path%>
+								<%= link_to "Cloud Admin", admin_home_path %>
 							</li>	
 						<% end %>
 						<li>
-							<%= link_to "#{current_user.name}", users_admin_path%>
+							<%= link_to "#{current_user_name}", users_home_path%>
 						</li>
 						<li>
-							<%= link_to "Sign out", destroy_user_session_path, method: "delete"%>
+							<%= link_to "Sign out", users_delete_session_path, method: "delete"%>
 						</li>
 					</ul>
 					<% else %>

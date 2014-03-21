@@ -1,4 +1,5 @@
 class MachinesController < ApplicationController
+	before_action :signed_in_user
 	layout 'users_operation'
 	def register
 		#update machine price

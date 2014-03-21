@@ -15,4 +15,7 @@ class AdminController < ApplicationController
 	def iso_image
 		@isos = Iso.all
 	end
+	def home
+		
+	end
 end

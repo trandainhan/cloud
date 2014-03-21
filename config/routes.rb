@@ -16,6 +16,8 @@ Cloud::Application.routes.draw do
   get 'admin/shift' => 'admin#shift'
   get 'admin/service_type' => 'admin#service_type'
   get 'admin/iso_image' => 'admin#iso_image'
+  get 'admin/home' => 'admin#home'
+  delete 'users/delete_session' => 'users#delete_session'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

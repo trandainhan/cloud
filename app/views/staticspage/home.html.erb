@@ -1,19 +1,37 @@
-<div id = "myCarousel">
-	<div id = "myCarouselContent">
-		<h1>High Perfomance Cloud Computing</h1>
-		<h3> Providing the best cloud service in Viet Nam </h3>
-		<div class = "carouselButton">
-			<button id = "btnAbout" type="button" class="btn btn-default btn-lg">
-				About
-			</button>
-			<button id = "btnContact" type="button" class="btn btn-default btn-lg">
-				Contact
-			</button>
-			<a href="/users/sign_up" class="btn btn-default btn-lg">Sign Up</a>
-		</div>
-	</div>
-</div>
-<div id = "wrap">
-	<%= render "layouts/about"%>	
-	<%= render "layouts/contact"%>
+<div class = 'cover-root'>
+	<div class="site-wrapper">
+    <div class="site-wrapper-inner">
+      <div class="cover-container">
+        <div class="masthead clearfix">
+          <div class="inner">
+            <h3 class="masthead-brand">CLOUD</h3>
+            <ul class="nav masthead-nav">
+              <li class="active"><a href="#">Home</a></li>
+              <li><a href="#">About</a></li>
+              <li><a href="#">Contact</a></li>
+              <li><a href="/users/sign_in">Sign In</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="inner cover">
+          <h1 class="cover-heading">HPCC CLOUD.</h1>
+          <p class="lead">Providing the best cloud service in Viet Nam.</p>
+          <p class="lead">
+            <button id = "btnAbout" type="button" class="btn btn-default btn-lg">
+							About
+						</button>
+						<button id = "btnContact" type="button" class="btn btn-default btn-lg">
+							Contact
+						</button>
+						<%= link_to "Sign up", users_sign_up_path, class: "btn btn-default btn-lg"%>
+          </p>
+        </div>
+        <div class="mastfoot">
+          <div class="inner">
+            <p> <a href="http://www.cse.hcmut.edu.vn/">Falcuty Of Computer Science And Engineering, Hochiminh City University Of Technology</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

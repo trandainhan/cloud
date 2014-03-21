@@ -1,17 +1,15 @@
-<h2>Sign up</h2>
-<%= form_tag( users_path, method: :post) do %>
-<span><%= @errors %></span>
-<div>
-  <label>Username:</label>
-  <%= text_field_tag :username %>
+<div class = "cover-root">
+  <div class="container">
+    
+    <%= form_tag( users_path, method: :post, class: "form-signin") do %>
+    	<span><%= @errors %></span>
+      <h2 class="form-signin-heading">Register</h2>
+      <%= text_field_tag :username, "", { placeholder: "Username", autofocus: :true, class: "form-control", required: :true } %>
+      <%= password_field_tag :password, "", { placeholder: "Password", class: "form-control", required: :true } %>
+      <%= password_field_tag :password_confirmation, "", { placeholder: "Password Confirmation", class: "form-control", required: :true } %>
+      <button class="btn btn-lg btn-primary btn-block" type="submit">Sign Up</button>
+      <a href="/users/sign_in">Already have account, sign in?</a>
+    <% end %>
+
+  </div> <!-- /container -->
 </div>
-<div>
-  <label>Password:</label>
-  <%= password_field_tag :password%>
-</div>
-<div>
-  <label>Password Confirmation</label>
-  <%= password_field_tag :password_confirmation %>
-</div>
-<button>Submit</button>
-<% end %>

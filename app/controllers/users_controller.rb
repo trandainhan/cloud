@@ -1,23 +1,35 @@
 class UsersController < ApplicationController
+	before_action :signed_in_user, only: [:home, :show, :edit, :update, :delete, :history]
 	layout 'users_operation'
 	include FormValidationHelper
 	def new
-		render layout: false
+		render layout: "application"
 	end
 
 	def new_session
-		render layout: false
+		render layout: "application"
 	end
 
 	def create_session
-		signin_response = hpcc_signin(params[:username], params[:password])# send request to server
-		if signin_response["ret"] == "OK"
-			# redirect to user page
-			redirect_to '/users/home'
+		if params["username"] && params[:password]
+			signin_response = hpcc_signin(params[:username], params[:password])# send request to server
+			if signin_response["ret"] == "OK"
+				# redirect to user page
+				redirect_to '/users/home'
+			else
+				#error
+				render text: "errors: "+ signin_response["errcode"]
+			end	
 		else
-			#error
-			render text: "errors: "+ signin_response["errcode"]
+			@errors = "Username or password is incorrect"
+			render 'new_session'
 		end
+		
+	end
+
+	def delete_session
+		hpcc_signout()
+		redirect_to root_path, notice: "Sign out successful"
 	end
 
 	def create

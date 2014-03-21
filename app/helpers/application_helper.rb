@@ -4,7 +4,7 @@ module ApplicationHelper
     RUN_ALONE   = "0"
     RUN_ON_SYS  = "1"	
     @@server_name 	= 'http://172.28.182.220:3000'
-		@@mode = "1"
+		@@mode = "0"
 	def hpcc_register(username,pass)
 		if(@@mode.to_i == RUN_ALONE.to_i)
 			ret = {"ret"=>"OK","data"=>""} 

@@ -1,20 +1,17 @@
-<!DOCTYPE html>
-<html>
-	<head>
-	</head>
-	<body>
-		<%= form_tag( users_sign_in_path, method: :post) do %>
-		<h2>Login</h2>
-		<div>
-			<label>Username:</label>
-			<%= text_field_tag :username %>
-		</div>
-		<div>
-			<label>Password:</label>
-			<%= password_field_tag :password %>
-		</div>
-		
-		<button>Submit</button>
-		<% end %>
-	</body>
-</html>
+<div class = "cover-root">
+  <div class="container">
+
+    
+    <%= form_tag( users_sign_in_path, method: :post, class: "form-signin") do %>
+      <h2 class="form-signin-heading">Please sign in</h2>
+      <%= text_field_tag :username, "", { placeholder: "Username", autofocus: :true, class: "form-control", required: :true } %>
+      <%= password_field_tag :password, "", { placeholder: "Password", class: "form-control", required: :true } %>
+      <label class="checkbox">
+        <input type="checkbox" value="remember-me"> Remember me
+      </label>
+      <button class="btn btn-lg btn-primary btn-block" type="submit">Sign In</button>
+      <a href="/users/sign_up">Or create a free account?</a>
+    <% end %>
+
+  </div> <!-- /container -->
+</div>

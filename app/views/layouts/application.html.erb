@@ -1,57 +1,14 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>Hpcc Cloud</title>
+<head>
+  <title>NewLayout</title>
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
 
-		<%= stylesheet_link_tag    "bootstrap"%>
-		<%= stylesheet_link_tag    "carousel"%>
-		<%= stylesheet_link_tag    "customize"%>
-		<%= stylesheet_link_tag    "footer"%>
-		<%= stylesheet_link_tag    "nhantdFont"%>
-		
-		<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.css" rel="stylesheet">
-		<%= csrf_meta_tags %>
-	</head>
-	<body>
+	<%= yield %>
 
-		<%= render 'layouts/header' %>
-		<% flash.each do |key, value| %>
-      <div class="alert alert-<%= key %>"><%= value %></div>
-    <% end %>
-		<div>
-			<%= yield %>
-		</div>
-		
-		<%= render "layouts/footer"%>
-		<a href="#" class="go-top"><i class="fa fa-arrow-up fa-2x"></i></a>
-		
-		
-		
-		<%= javascript_include_tag "application"%>
-		<script>
-			$(document).ready(function() {
-				$("#btnAbout").click(function() {
-					$('html, body').animate({
-						scrollTop : $("#about").offset().top
-					}, 'slow');
-				});
-				$("#btnContact").click(function() {
-					$('html, body').animate({
-						scrollTop : $("#contact").offset().top
-					}, 'slow');
-				});
-				$("#btnAboutInHeader").click(function() {
-					$('html, body').animate({
-						scrollTop : $("#about").offset().top
-					}, 'slow');
-				});
-				$("#btnContactInHeader").click(function() {
-					$('html, body').animate({
-						scrollTop : $("#contact").offset().top
-					}, 'slow');
-				});
-
-			});
-		</script>
-	</body>
+</body>
 </html>
