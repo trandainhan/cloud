@@ -86,6 +86,7 @@ class MachinesController < ApplicationController
 			start_response = hpcc_vms_start_single_machine(current_user_name, current_user_password, params["vm_id"], params["iso_id"])	
 			if start_response['ret'] == 'OK'
 				#handle start
+				flash[:success] = "Successfully started"
 			else
 				#show errors
 			end
@@ -93,6 +94,7 @@ class MachinesController < ApplicationController
 			stop_response = hpcc_vms_stop_single_machine(current_user_name, current_user_password, params["vm_id"])	
 			if stop_response['ret'] == "OK"
 				#handle stop
+				flash[:success] = "Successfully stopped"
 			else
 				#show errors
 			end
@@ -125,7 +127,7 @@ class MachinesController < ApplicationController
 			start_response = hpcc_vms_start_group_machine(current_user_name, current_user_password, params['group_id'], params['iso_id'])
 			if start_response['ret'] == 'OK'
 				#handle start
-				p "start ok"
+				flash[:success] = "Successfully started"
 			else	
 				#show errors
 				p "error:" + start_response['errcode']
@@ -133,7 +135,7 @@ class MachinesController < ApplicationController
 		when 'Stop'
 			stop_response = hpcc_vms_stop_group_machine(current_user_name, current_user_password, params['group_id'])
 			if stop_response['ret'] == 'OK'
-							
+				flash[:success] = "Successfully stopped"			
 			else
 							
 			end			
