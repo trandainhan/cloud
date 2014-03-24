@@ -11,17 +11,19 @@ class UsersController < ApplicationController
 	end
 
 	def create_session
-		if params["username"] && params[:password]
+		if params[:username] && params[:password]
 			signin_response = hpcc_signin(params[:username], params[:password])# send request to server
 			if signin_response["ret"] == "OK"
 				# redirect to user page
+				flash[:success] = "Welcome back #{params[:username]}"
 				redirect_to '/users/home'
 			else
 				#error
-				render text: "errors: "+ signin_response["errcode"]
+				flash[:danger] = "Error: #{signin_response["errcode"]}"
+				render 'new_session'
 			end	
 		else
-			@errors = "Username or password is incorrect"
+			flash[:danger] = "Username or password is incorrect"
 			render 'new_session'
 		end
 		
@@ -29,7 +31,8 @@ class UsersController < ApplicationController
 
 	def delete_session
 		hpcc_signout()
-		redirect_to root_path, notice: "Sign out successful"
+		# flash[:success]= "Sign out successful"
+		redirect_to root_path
 	end
 
 	def create
@@ -41,17 +44,20 @@ class UsersController < ApplicationController
 				signin_response = hpcc_signin(params[:username], params[:password])# send request to server
 				if signin_response["ret"] == "OK"
 					# redirect to user page
-					render 'home'
+					flash[:success] = "Welcome, #{params[:username]}"
+					redirect_to '/users/home'
 				else
 					#error
-					render text: "errors: "+ signin_response["errcode"]
+					flash[:danger] = "Error: #{signin_response["errcode"]}"
+					render 'new_session'
 				end
 			else
 				#render 500 Internal Error
-				render text: "500 Internal Error: " + reg_response['errcode']
+				flash[:danger] = "Error: #{reg_response['errcode']}"
+				render 'new_session'
 			end
 		else
-			@errors = is_validated[:detail]
+			flash[:danger] = is_validated[:detail]
 			render 'new'
 		end
 	end

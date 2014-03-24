@@ -1,0 +1,25 @@
+<div>
+	<h3>Shift Table</h3>
+	<table class = 'table table-striped'>
+		<tr>
+			<th>Shift Type</th>
+			<th>Description</th>
+			<th>From</th>
+			<th>To</th>
+			<th>Action</th>
+		</tr>
+		<% @shifts.each do |shift| %>
+			<tr>
+				<td><%= shift.shift_type %></td>
+				<td><%= shift.description %></td>
+				<td><%= shift.from %></td>
+				<td><%= shift.to %></td>
+				<td>
+					<button class="btn btn-mini btn-info">Edit</button>
+					<button class="btn btn-mini btn-danger">Delete</button>
+				</td>
+			</tr>
+		<% end %>
+
+	</table>
+</div>

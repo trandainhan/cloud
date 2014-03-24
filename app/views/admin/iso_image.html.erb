@@ -1,0 +1,29 @@
+<div>
+	<h3>ISO Image List</h3>
+	<table class = 'table table-striped'>
+		<tr>
+			<th>Name</th>
+			<th>Is Custom</th>
+			<th>Is Clonable</th>
+			<th>Is Single</th>
+			<th>Is Group</th>
+			<th>Ratio</th>
+			<th>Action</th>
+		</tr>
+		<% @isos.each do |iso| %>
+			<tr>
+				<td><%= iso.iso_name %></td>
+				<td><%= iso.is_custom %></td>
+				<td><%= iso.is_clonable %></td>
+				<td><%= iso.is_single %></td>
+				<td><%= iso.is_group %></td>
+				<td><%= iso.ratio %></td>
+				<td>
+					<button class="btn btn-mini btn-info">Edit</button>
+					<button class="btn btn-mini btn-danger">Delete</button>
+				</td>
+			</tr>
+		<% end %>
+
+	</table>
+</div>

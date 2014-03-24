@@ -1,32 +1,72 @@
 <!DOCTYPE html>
-<html style="width:100%; height:100%">
-<%= stylesheet_link_tag    "application"%>
-<body style="width:100%; height:100%">
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-<div id="container" style="width:100%; height:100%">
+    <title>Dashboard - SB Admin</title>
 
-<div id="header" style="background-color:#008B8B;">
-<h1 style="margin-bottom:0;">Main Title</h1></div>
+    <%= stylesheet_link_tag    "application-all", media: "all", "data-turbolinks-track" => true %>
+	  <%= stylesheet_link_tag    "application-admin", media: "all", "data-turbolinks-track" => true %>
+	  <%= csrf_meta_tags %>
+    <!-- Page Specific CSS -->
+    <link rel="stylesheet" href="http://cdn.oesmith.co.uk/morris-0.4.3.min.css">
+    <%= stylesheet_link_tag 'http://fortawesome.github.io/Font-Awesome/assets/font-awesome/css/font-awesome.css' %>
+  </head>
 
-<div id="menu" style="background-color:#20B2AA;height:100%;width:20%;float:left;">
-<b>Sidebar</b>
-<br>
-<a href="/admin/virtual_machine">Virtual Machine</a>
-<br>
-<a href="/admin/users">Users</a>
-<br>
-<a href="/admin/shift">Shift</a>
-<br>
-<a href="/admin/service_type">Service Type</a>
-<br>
-<a href="/admin/iso_image">ISO Image</a>
-</div>
+  <body>
 
-<div id="content" style="background-color:#EEEEEE;height:100%;width:80%;float:left;">
-<%= yield %>
-</div>
+    <div id="wrapper">
 
-</div>
- 
-</body>
+      <!-- Sidebar -->
+      <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/admin/home">Cloud Admin</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+          <ul class="nav navbar-nav side-nav">
+            <li class="<%= 'active' if session[:active] == 'ad_home' %>"><a href="/admin/home"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+            <li class="<%= 'active' if session[:active] == 'ad_vm' %>"><a href="/admin/virtual_machine"><i class="fa fa-bar-chart-o"></i> Virtual Machines</a></li>
+            <li class="<%= 'active' if session[:active] == 'ad_user' %>"><a href="/admin/users"><i class="fa fa-table"></i> Users</a></li>
+            <li class="<%= 'active' if session[:active] == 'ad_shift' %>"><a href="/admin/shift"><i class="fa fa-edit"></i> Shifts</a></li>
+            <li class="<%= 'active' if session[:active] == 'ad_ser' %>"><a href="/admin/service_type"><i class="fa fa-font"></i> Service Type</a></li>
+            <li class="<%= 'active' if session[:active] == 'ad_iso' %>"><a href="/admin/iso_image"><i class="fa fa-desktop"></i> ISO Image</a></li>
+          </ul>
+
+          <ul class="nav navbar-nav navbar-right navbar-user">
+            <li class="dropdown messages-dropdown">
+              <a href="/"> Cloud Home </a>
+            </li>
+            <li><a href="/users/home"><%= current_user_name %></a></li>
+            <li class="dropdown alerts-dropdown">
+              <%= link_to "Sign out", users_delete_session_path, method: "delete"%>
+            </li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </nav>
+
+      <div id="page-wrapper">
+        <% flash.each do |key, value| %>
+          <div class="alert alert-<%= key %>"><%= value %></div>
+        <% end %>
+				<%= yield %>
+      </div><!-- /#page-wrapper -->
+    </div><!-- /#wrapper -->
+
+		<%= javascript_include_tag "application", "data-turbolinks-track" => true %>    
+		<!-- Page Specific Plugins -->
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+    <script src="http://cdn.oesmith.co.uk/morris-0.4.3.min.js"></script>
+  </body>
 </html>

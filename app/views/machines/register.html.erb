@@ -18,9 +18,34 @@
 		          <p>CPU <strong><%= vm["cpus"] %> </strong> cores</p>
 		        </div>
 		        <div class="pricing-table-signup-tiny">
-		          <p><a href="#">Choose</a></p>
+		          <p><a data-toggle="modal" data-target="#choose-option-<%= vm["id"] %>" >Choose</a></p>
 		          <!-- <button>Choose</button> -->
 		        </div>
+		        <!-- Modal -->
+						<div class="modal fade" id="choose-option-<%= vm["id"] %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+						  <div class="modal-dialog">
+						    <div class="modal-content">
+						      <div class="modal-header">
+						        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						        <h4 class="modal-title" id="myModalLabel">Options</h4>
+						      </div>
+						      <div class="modal-body">
+						      	<div class = "row-fluid">
+											<%= radio_button_tag :machine_type, 1, checked: true %> Single
+							        <br>
+							        <%= radio_button_tag :machine_type, 2 %> Group
+							        <%= number_field_tag :group_num, 2, in: 1...10%>
+						      	</div>
+						        
+						      </div>
+						      <div class="modal-footer">
+						        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+						        <!-- <button type="button" class="btn btn-primary">Submit</button> -->
+						        <%= submit_tag "Submit", class: "btn btn-primary" %>
+						      </div>
+						    </div>
+						  </div>
+						</div>
 		      </div>
 		    <% end %>
 		  <% end %>

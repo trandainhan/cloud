@@ -1,0 +1,23 @@
+<div>
+	<h3>Service Type Table</h3>
+	<table class = 'table table-striped'>
+		<tr>
+			<th>Name</th>
+			<th>Unit Value</th>
+			<th>Description</th>
+			<th>Action</th>
+		</tr>
+		<% @service_types.each do |s| %>
+			<tr>
+				<td><%= s.name %></td>
+				<td><%= s.unit_value %></td>
+				<td><%= s.description %></td>
+				<td>
+					<button class="btn btn-mini btn-info">Edit</button>
+					<button class="btn btn-mini btn-danger">Delete</button>
+				</td>
+			</tr>
+		<% end %>
+
+	</table>
+</div>

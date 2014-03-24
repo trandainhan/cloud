@@ -18,7 +18,15 @@ module SessionHelper
 	def signed_in_user
 		unless signed_in?
 			store_location
-			redirect_to users_sign_in_path, notice: "Please sign in"
+			flash[:danger] = "Please sign in"
+			redirect_to users_sign_in_path 
+		end
+	end
+
+	def signed_in_admin
+		unless admin_signed?
+			flash[:danger] = "You must have admin role to access admin page"
+			redirect_to "/users/home"
 		end
 	end
 

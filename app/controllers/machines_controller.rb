@@ -12,45 +12,56 @@ class MachinesController < ApplicationController
 
 	def create
 		# validate
-		case params['machine_type']
-		when '1' #single machine
-			# get type(id) of vm and send to server
-			vm_type = params["vm_id"]
-			reg_response = hpcc_vms_register_single(current_user_name, current_user_password, 1, vm_type)
-			if reg_response['ret'] == "OK"
-				# get all vm of current user and redirect to index page
-				getvm_response = hpcc_vms_get_single_machine(current_user_name, current_user_password)
-				getiso_response = hpcc_vms_get_iso()
-				if getvm_response['ret'] == "OK" && getiso_response['ret'] == 'OK'
-					@user_vm_list = getvm_response["data"]
-					@iso_list = getiso_response["data"]
+		if params['machine_type']
+			case params['machine_type']
+			when '1' #single machine
+				# get type(id) of vm and send to server
+				vm_type = params["vm_id"]
+				reg_response = hpcc_vms_register_single(current_user_name, current_user_password, 1, vm_type)
+				if reg_response['ret'] == "OK"
+					# get all vm of current user and redirect to index page
+					getvm_response = hpcc_vms_get_single_machine(current_user_name, current_user_password)
+					getiso_response = hpcc_vms_get_iso()
+					if getvm_response['ret'] == "OK" && getiso_response['ret'] == 'OK'
+						@user_vm_list = getvm_response["data"]
+						@iso_list = getiso_response["data"]
+					else
+						# request failed, server error		
+						flash[:danger] = "Get Virtual Machine Or ISO Image Failed: " + getvm_response["errcode"]	+ getiso_response['errcode']
+						render "register"
+					end
 				else
-					# request failed, server error		
-					@errors = "Get Virtual Machine Or ISO Image Failed: " + getvm_response["errcode"]	+ getiso_response['errcode']
+					# request failed, server error	
+					flash[:danger] = "Register New Machine Failed: " + reg_response['errcode'].to_s 
+					render "register"
 				end
-			else
-				# request failed, server error	
-				@errors = "Register New Machine Failed: " + reg_response['errcode'].to_s 
-			end
-			redirect_to single_machines_index_path	
-		when '2' #group
-			reg_response = hpcc_vms_register_group(current_user_name, current_user_password, params["group_name"], params['group_num'], params['vm_id'])
-			if reg_response['ret'] == "OK"
-				# get all groups of current user and redirect to index page
-				getgroup_response = hpcc_vms_get_group_machine(current_user_name, current_user_password)
-				getiso_response = hpcc_vms_get_iso()
-				if getgroup_response['ret'] == "OK" && getiso_response['ret'] == 'OK'
-					@user_group_list = getgroup_response["data"]
-					@iso_list = getiso_response["data"]
+				flash[:success] = "Register Single Machine Successful!"
+				redirect_to single_machines_index_path	
+			when '2' #group
+				reg_response = hpcc_vms_register_group(current_user_name, current_user_password, params["group_name"], params['group_num'], params['vm_id'])
+				if reg_response['ret'] == "OK"
+					# get all groups of current user and redirect to index page
+					getgroup_response = hpcc_vms_get_group_machine(current_user_name, current_user_password)
+					getiso_response = hpcc_vms_get_iso()
+					if getgroup_response['ret'] == "OK" && getiso_response['ret'] == 'OK'
+						@user_group_list = getgroup_response["data"]
+						@iso_list = getiso_response["data"]
+					else
+						# request failed, server error		
+						flash[:danger] = "Get Group Of Virtual Machine Or ISO Image Failed"	+ getvm_response["errcode"]	+ getiso_response['errcode']
+						render "register"
+					end
 				else
-					# request failed, server error		
-					@errors = "Get Group Of Virtual Machine Or ISO Image Failed"	+ getvm_response["errcode"]	+ getiso_response['errcode']
+					# request failed, server error	
+					flash[:danger] = "Register New Machine Failed: " + reg_response['errcode'].to_s 
+					render "register"
 				end
-			else
-				# request failed, server error	
-				@errors = "Register New Machine Failed: " + reg_response['errcode'].to_s 
+				flash[:success] = "Register Group Machine Successful!"
+				redirect_to groups_index_path
 			end
-			redirect_to groups_index_path
+		else
+			flash[:danger] = "You must choose one machine type" 
+			render "register"
 		end
 	end
 
@@ -65,7 +76,7 @@ class MachinesController < ApplicationController
 			@iso_list = getiso_response["data"]
 		else 
 			# request failed, server error	
-			@errors = "Get Virtual Machine Or ISO Image Failed" + getvm_response["errcode"]	+ getiso_response['errcode']
+			flash[:danger] = "Get Virtual Machine Or ISO Image Failed" + getvm_response["errcode"]	+ getiso_response['errcode']
 		end
 	end
 
@@ -103,7 +114,7 @@ class MachinesController < ApplicationController
 			# render json: @user_group_list
 		else 
 			# request failed, server error	
-			@errors = "Get Group Of Virtual Machine Or ISO Image Failed" + getvm_response["errcode"]	+ getiso_response['errcode']
+			flash[:danger] = "Get Group Of Virtual Machine Or ISO Image Failed" + getvm_response["errcode"]	+ getiso_response['errcode']
 		end
 	end
 
