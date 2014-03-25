@@ -5,9 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-
-    <title>Dashboard - SB Admin</title>
-
+    <title><%= yield(:title) %></title>
     <%= stylesheet_link_tag    "application-all", media: "all", "data-turbolinks-track" => true %>
 	  <%= stylesheet_link_tag    "application-admin", media: "all", "data-turbolinks-track" => true %>
 	  <%= csrf_meta_tags %>
