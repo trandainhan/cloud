@@ -130,18 +130,28 @@ class MachinesController < ApplicationController
 				flash[:success] = "Successfully started"
 			else	
 				#show errors
-				p "error:" + start_response['errcode']
+				flash[:danger] = "Error:" + start_response['errcode']
 			end
 		when 'Stop'
 			stop_response = hpcc_vms_stop_group_machine(current_user_name, current_user_password, params['group_id'])
 			if stop_response['ret'] == 'OK'
 				flash[:success] = "Successfully stopped"			
 			else
-							
+				flash[:danger] = "Error:" + start_response['errcode']			
 			end			
 		when 'Hibernate'
 		end
 		redirect_to groups_index_path
+	end
+
+	def get_iso_price
+		if params[:vm_id] && params[:iso_id]
+			ret = total_cost(params[:vm_id], params[:iso_id])
+			@price =  ret[:ret] == 'OK' ? ret[:data] : "error"
+			render text: @price.to_s
+		else
+			render text: "error"
+		end
 	end
 
 end

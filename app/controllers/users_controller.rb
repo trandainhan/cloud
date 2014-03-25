@@ -20,11 +20,11 @@ class UsersController < ApplicationController
 			else
 				#error
 				flash[:danger] = "Error: #{signin_response["errcode"]}"
-				render 'new_session'
+				render 'new_session', layout: "application"
 			end	
 		else
 			flash[:danger] = "Username or password is incorrect"
-			render 'new_session'
+			render 'new_session', layout: "application"
 		end
 		
 	end
@@ -49,16 +49,16 @@ class UsersController < ApplicationController
 				else
 					#error
 					flash[:danger] = "Error: #{signin_response["errcode"]}"
-					render 'new_session'
+					render 'new_session', layout: "application"
 				end
 			else
 				#render 500 Internal Error
 				flash[:danger] = "Error: #{reg_response['errcode']}"
-				render 'new_session'
+				render 'new', layout: "application"
 			end
 		else
 			flash[:danger] = is_validated[:detail]
-			render 'new'
+			render 'new', layout: "application"
 		end
 	end
 

@@ -4,7 +4,7 @@ module ApplicationHelper
     RUN_ALONE   = "0"
     RUN_ON_SYS  = "1"	
     @@server_name 	= 'http://172.28.182.220:3000'
-		@@mode = "0"
+		@@mode = "1"
 	def hpcc_register(username,pass)
 		if(@@mode.to_i == RUN_ALONE.to_i)
 			User.create!({username: username, activated: 1, role: 2})
@@ -50,7 +50,9 @@ module ApplicationHelper
 			if(ret["ret"] == "OK")
 				session[:cloud_user] = username
 				session[:cloud_pass] = pass
+				p session[:cloud_user]
 			end
+			p ret
 			return ret
 		end
 	end
@@ -175,10 +177,10 @@ module ApplicationHelper
 			ret = {   "ret"=> "OK",
 				      "errcode"=>  "",
 				      "data"=> [
-				      {"id"=> 1,"name"=>  "'SMALL VM'"  ,"cpus"=> "1","ram"=> "2048"},
-				      {"id"=> 2,"name"=>  "'MEDIUM VM'" ,"cpus"=> "2","ram"=> "4096"},
-				      {"id"=> 3,"name"=>  "'LARGE VM'"  ,"cpus"=> "4","ram"=> "8192"},
-				      {"id"=> 4,"name"=>  "'XTREME VM'" ,"cpus"=> "8","ram"=> "16384"}]}
+				      {"id"=> 1,"name"=>  "'SMALL VM'"  ,"cpus"=> "1","ram"=> "2048","price"=> "0.06"},
+				      {"id"=> 2,"name"=>  "'MEDIUM VM'" ,"cpus"=> "2","ram"=> "4096","price"=> "0.12"},
+				      {"id"=> 3,"name"=>  "'LARGE VM'"  ,"cpus"=> "4","ram"=> "8192","price"=> "0.24"},
+				      {"id"=> 4,"name"=>  "'XTREME VM'" ,"cpus"=> "8","ram"=> "16384","price"=> "0.48"}]}
 			return ret
 		else
 			uri = URI.parse(@@server_name)
