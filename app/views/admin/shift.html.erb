@@ -17,7 +17,8 @@
 				<td><%= shift.to %></td>
 				<td>
 					<button class="btn btn-mini btn-info">Edit</button>
-					<button class="btn btn-mini btn-danger">Delete</button>
+					<%= button_to "Delete", "/admin/delete_shift/#{shift.id}", method: :delete,
+                                     data: { confirm: "You sure?" }, :class => "btn btn-mini btn-danger" %>
 				</td>
 			</tr>
 		<% end %>

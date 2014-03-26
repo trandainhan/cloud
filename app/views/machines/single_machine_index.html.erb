@@ -12,9 +12,9 @@
 								 <i class="fa fa-angle-double-down fa-1x"></i> VMS name: <%= vm_detail["name"] %>
 							</a>
 							<div class="pull-right">
-								<% if (vm['state'] == '1') %>Running <% end %>
-								<% if (vm['state'] == '0') %>Stoped <% end %>
-								<% if (vm['state'] == '2') %>Hibernate <% end %>
+								<% if (vm['state'] == 1) %>Running <% end %>
+								<% if (vm['state'] == 0) %>Stoped <% end %>
+								<% if (vm['state'] == 2) %>Hibernate <% end %>
 								<button id="" class = "btn btn-success" data-toggle="modal" data-target="#choose-iso-<%= vm['vm_id'] %>">Start</button>
 								<input type="submit" value="Hibernate" id="" name="commit" class="btn btn-warning"/>
 								<input type="submit" value="Stop" id="" name="commit" class="btn btn-danger"/>
@@ -30,7 +30,6 @@
 										<li>Ram: <%= vm_detail["ram"] %></li>
 										<li>CPU: <%= vm_detail["cpus"] %> core</li>
 										<li>Storage: 100 GB</li>
-										<li>State: <%= vm["state"] %></li>
 									</ul>
 									<!-- show list iso -->
 									<div class="modal fade" id="choose-iso-<%= vm['vm_id'] %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -38,14 +37,19 @@
 									    <div class="modal-content">
 									      <div class="modal-header">
 									        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-									        <h4 class="modal-title" id="myModalLabel">Choose Iso</h4>
+									        <h4 class="modal-title" id="myModalLabel">Choose Iso Image</h4>
 									      </div>
 									      <div class="modal-body">
-									      	<select name = "iso_id" class = "selectpicker">
+									      	<select name = "iso_id" class = "selectpicker" onchange="getPrice(this, <%= vm['vm_type']%>)">
 														<% @iso_list.each do |iso| %>
 															<option value = "<%= iso['iso_id']%>"> <%= iso['iso_name']%></option>
 														<% end %>
 													</select>
+													<h5>Price: 	$<span id="price-<%= vm['vm_type']%>">
+																				<% ret = total_cost(vm['vm_type'], @iso_list.first['iso_id'])%>
+																				<%= ret[:ret] == 'OK' ? ret[:data] : 'error' %>
+																			</span>
+													</h5>
 									      </div>
 									      <div class="modal-footer">
 									        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

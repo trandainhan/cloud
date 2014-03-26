@@ -5,14 +5,16 @@ Cloud::Application.routes.draw do
   get '/users/sign_in' => "users#new_session"
   post '/users/sign_in' => "users#create_session"
   get '/users/:action' => "users#:action"
-  delete 'users/delete_session' => 'users#delete_session'
+  delete '/users/delete_session' => 'users#delete_session'
   get '/machines/register' => "machines#register"
   post '/machines/register' => "machines#create"
   post '/single_machines/handle_action' => "machines#single_machine_handle_action"
   get '/single_machines/index' => "machines#single_machine_index"
   get '/groups/index' => "machines#groups_index"
   post '/groups/handle_action' => "machines#groups_handle_action"
-  get 'admin/:action' => 'admin#:action'
+  get '/admin/:action' => 'admin#:action'
+  delete '/admin/:action/:id' => 'admin#:action'
+  post '/machines/iso_price' => 'machines#get_iso_price'
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

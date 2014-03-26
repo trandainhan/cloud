@@ -71,8 +71,4 @@ module PricingHelper
 		return total_cost * used_time
 	end
 
-	# => cost on demand or reserved
-	def method_name
-		
-	end
 end

@@ -8,6 +8,8 @@ module SessionHelper
 	end
 
 	def admin_signed?
+		p session[:cloud_user]
+		p "###############################################"
 		current_user.role == 1 
 	end
 
