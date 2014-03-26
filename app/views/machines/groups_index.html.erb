@@ -45,7 +45,7 @@
 				        <h4 class="modal-title" id="myModalLabel">Choose Iso Image</h4>
 				      </div>
 				      <div class="modal-body">
-				      	<select name = "vm_iso" class = "selectpicker" onchange="getPrice(this, <%= g['type_id']%>)">
+				      	<select name = "iso_id" class = "selectpicker btn btn-primary" onchange="getPrice(this, <%= g['type_id']%>)">
 				      		<% @iso_list.each do |iso| %>
 										<option value = "<%= iso['iso_id']%>"> <%= iso['iso_name']%></option>
 									<% end %>

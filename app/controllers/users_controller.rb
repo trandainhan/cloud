@@ -84,6 +84,8 @@ class UsersController < ApplicationController
 
 	def history
 		session[:active] = 'history'
+		@logs = current_user.get_vms_logs
+		
 	end
 
 end
