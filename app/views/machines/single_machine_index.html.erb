@@ -5,7 +5,7 @@
 			<% vm_detail = VmType.find(vm["vm_type"]) %>
 			<%= form_tag( single_machines_handle_action_path, method: :post) do %>
 				<%= hidden_field_tag :vm_id, vm["vm_id"] %>
-				<div id = "collapseId?" class="panel panel-default">
+				<div id = "collapsesState<%= vm['vm_id']%>" class="panel panel-default">
 					<div class="panel-heading" style = "height: 54px;">
 						<div class="panel-title">
 							<a class="accordion-toggle" data-toggle="collapse" href="#id collapse">
