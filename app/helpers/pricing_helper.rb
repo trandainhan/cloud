@@ -70,5 +70,14 @@ module PricingHelper
 		end
 		return total_cost * used_time
 	end
-
+	
+	def update_log(vm_id)
+		@log = LeaseLog.where(vm_id: vm_id).last
+		@log.update_run_time
+		@log.update_iso_id 
+		ret = total_cost(Vms.find(@log.vm_id).vm_type, @log.iso_id)
+		price = ret[:data] if ret[:ret] == "OK"
+		@log.update_price_per_hour(price)
+		@log.update_total_price
+	end
 end

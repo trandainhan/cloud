@@ -1,1 +1,23 @@
 <% content_for :title, "Cloud - #{current_user_name} - History" %>
+<div>
+	<h3>History</h3>
+	<table class = 'table table-striped'>
+		<tr>
+			<th>VM ID</th>
+			<th>Start Time</th>
+			<th>Stop Time</th>
+			<th>Run Time(hour)</th>
+			<th>Total Price($)</th>
+		</tr>
+		<% @logs.each do |log| %>
+			<tr>
+				<td><%= log.vm_id %></td>
+				<td><%= log.start_time %></td>
+				<td><%= log.stop_time %></td>
+				<td><%= log.run_time %></td>
+				<td><%= log.total_price %></td>
+			</tr>
+		<% end %>
+
+	</table>
+</div>

@@ -83,20 +83,24 @@ class MachinesController < ApplicationController
 	def single_machine_handle_action
 		case params["commit"]
 		when "Start"
+			@start_time = Time.now
 			start_response = hpcc_vms_start_single_machine(current_user_name, current_user_password, params["vm_id"], params["iso_id"])	
 			if start_response['ret'] == 'OK'
 				#handle start
 				flash[:success] = "Successfully started"
 			else
 				#show errors
+				flash[:danger] = "Error:" + start_response['errcode']
 			end
 		when "Stop"
 			stop_response = hpcc_vms_stop_single_machine(current_user_name, current_user_password, params["vm_id"])	
 			if stop_response['ret'] == "OK"
 				#handle stop
+				update_log(params["vm_id"])
 				flash[:success] = "Successfully stopped"
 			else
 				#show errors
+				flash[:danger] = "Error:" + start_response['errcode']
 			end
 		when "Hibernate"	
 
@@ -135,6 +139,13 @@ class MachinesController < ApplicationController
 		when 'Stop'
 			stop_response = hpcc_vms_stop_group_machine(current_user_name, current_user_password, params['group_id'])
 			if stop_response['ret'] == 'OK'
+				get_group_vm_response = hpcc_vms_get_vms_of_group(current_user_name, current_user_password, params['group_id'])
+				if get_group_vm_response["ret"] == "OK"
+					vm_list = get_group_vm_response["data"]				
+					vm_list.each do |vm|
+						update_log(vm["vm_id"])
+					end
+				end
 				flash[:success] = "Successfully stopped"			
 			else
 				flash[:danger] = "Error:" + start_response['errcode']			

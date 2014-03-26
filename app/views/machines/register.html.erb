@@ -32,10 +32,20 @@
 						      </div>
 						      <div class="modal-body">
 						      	<div class = "row-fluid">
-											<%= radio_button_tag :machine_type, 1, checked: true %> Single
-							        <br>
-							        <%= radio_button_tag :machine_type, 2 %> Group
-							        <%= number_field_tag :group_num, 2, in: 1...10%>
+						      		<div class="row">
+						      			<h5><%= radio_button_tag :machine_type, 1, checked: true %> Single
+						      			</h5>
+						      		</div>
+						      		<div class="row">
+												<h5>
+													<%= radio_button_tag :machine_type, 2 %> Group
+													<%= number_field_tag :group_num, 2, in: 1...10%>
+												</h5>
+						      		</div>
+											
+							        
+							        
+							        <%= text_field_tag :group_name, "", { placeholder: "Group Name",class: "form-control",size: 10, maxlength: 10} %>
 						      	</div>
 						        
 						      </div>
