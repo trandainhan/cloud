@@ -25,7 +25,6 @@
             <% end %>
             <li><a href="#">Settings</a></li>
             <li><a href="/users/home"><%= current_user_name %></a></li>
-            <li><%= link_to "Sign out", 8, method: "delete" %></li>
           </ul>
         </div>
       </div>
@@ -51,9 +50,6 @@
     </div>
 
     <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
-    <!-- <% javascript_include_tag "bootstrap-select"%>
-    <% javascript_include_tag "bootstrap.min"%>
-    <% javascript_include_tag "application" %> -->
   </body>
 
 </html>
