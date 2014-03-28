@@ -15,9 +15,9 @@
 							<% if (g['state'] == 1) %>Running <% end %>
 							<% if (g['state'] == 0) %>Stoped <% end %>
 							<% if (g['state'] == 2) %>Hibernate <% end %>
-							<button id="" class = "btn btn-success" data-toggle="modal" data-target="#choose-iso-<%= g['group_id']%>">Start</button>
-							<input type="submit" value="Hibernate" id="" name="commit" class="btn btn-warning"/>
-							<input type="submit" value="Stop" id="" name="commit" class="btn btn-danger"/>
+							<button id="start<%= g['group_id']%>" class = "btn btn-success" data-toggle="modal" data-target="#choose-iso-<%= g['group_id']%>">Start</button>
+							<input type="submit" value="Hibernate" id="hibernate<%= g['group_id']%>" name="commit" class="btn btn-warning"/>
+							<input type="submit" value="Stop" id="stop<%= g['group_id']%>" name="commit" class="btn btn-danger"/>
 						</div>
 					</div>
 				</div>
@@ -67,3 +67,23 @@
 		<% end %>
 		<% end %>
 	</div>	
+	
+
+<script type="text/javascript" charset="utf-8">
+	$(document).ready(function(){
+		<% @user_group_list.each do |m| %>
+			if (<%= m['state'] %> == 0){
+				$('#collapsesState<%= m['group_id']%>').removeClass('panel panel-default').addClass('panel panel-danger');
+				$('#stop<%= m['group_id']%>').attr('disabled','disabled');
+			} else if (<%= m['state'] %> == 1) {
+				$('#collapsesState<%= m['group_id']%>').removeClass('panel panel-default').addClass('panel panel-success');
+				$('#start<%= m['group_id']%>').attr('disabled','disabled');
+			} else if (<%= m['state'] %> == 2) {
+				$('#collapsesState<%= m['group_id']%>').removeClass('panel panel-default').addClass('panel panel-warning');
+				$('#start<%= m['group_id']%>').attr('disabled','disabled');
+				$('#stop<%= m['group_id']%>').attr('disabled','disabled');
+				$('#hibernate<%= m['group_id']%>').attr('disabled','disabled');
+			}
+		<% end %>
+	});
+</script>

@@ -12,13 +12,12 @@
 								 <i class="fa fa-angle-double-down fa-1x"></i> VMS ID: <%= vm["vm_id"] %>
 							</a>
 							<div class="pull-right">
-								<% if (vm['state'] == 1) %>Running <% end %>
+								<% if (vm['state'] == 1) %> Running <% end %>
 								<% if (vm['state'] == 0) %>Stoped <% end %>
 								<% if (vm['state'] == 2) %>Hibernate <% end %>
-								<button id="" class = "btn btn-success" data-toggle="modal" data-target="#choose-iso-<%= vm['vm_id'] %>">Start</button>
-								<input type="submit" value="Hibernate" id="" name="commit" class="btn btn-warning"/>
-								<input type="submit" value="Stop" id="" name="commit" class="btn btn-danger"/>
-								
+								<button id="start<%= vm['vm_id'] %>" class = "btn btn-success" data-toggle="modal" data-target="#choose-iso-<%= vm['vm_id'] %>">Start</button>
+								<input type="submit" value="Hibernate" id="hibernate<%= vm['vm_id'] %>" name="commit" class="btn btn-warning"/>
+								<input type="submit" value="Stop" id="stop<%= vm['vm_id'] %>" name="commit" class="btn btn-danger"/>
 							</div>
 						</div>
 					</div>
@@ -40,11 +39,11 @@
 									        <h4 class="modal-title" id="myModalLabel">Choose Iso Image</h4>
 									      </div>
 									      <div class="modal-body">
-									      	<select name = "iso_id" class = "selectpicker" onchange="getPrice(this, <%= vm['vm_type']%>)">
+									      	<select name = "iso_id" class = "selectpicker btn btn-primary" onchange="getPrice(this, <%= vm['vm_type']%>)">
 														<% @iso_list.each do |iso| %>
 															<option value = "<%= iso['iso_id']%>"> <%= iso['iso_name']%></option>
 														<% end %>
-													</select>
+											</select>
 													<h5>Price: 	$<span id="price-<%= vm['vm_type']%>">
 																				<% ret = total_cost(vm['vm_type'], @iso_list.first['iso_id'])%>
 																				<%= ret[:ret] == 'OK' ? ret[:data] : 'error' %>
@@ -80,6 +79,8 @@
 				$('#collapsesState<%= m['vm_id']%>').removeClass('panel panel-default').addClass('panel panel-warning');
 				$('#start<%= m['vm_id']%>').attr('disabled','disabled');
 				$('#stop<%= m['vm_id']%>').attr('disabled','disabled');
+				$('#hibernate<%= m['vm_id']%>').attr('disabled','disabled');
 			}
 		<% end %>
+	});
 </script>
