@@ -1,24 +1,28 @@
 <% content_for :title, "Cloud - #{current_user_name} -Single Machine List" %>
 	<div class = "pannel-group" id = "accordion">
+		<ol class="breadcrumb ">
+		  <li><a href="/">HPCC Cloud</a></li>
+		  <li><a href="/users/home"><%= current_user_name %></a></li>
+		  <li class="active">Single Machine</li>
+		</ol>
 		<h2>Machine List</h2>
 		<% @user_vm_list.each do |vm| %>
 			<% vm_detail = VmType.find(vm["vm_type"]) %>
 			<%= form_tag( single_machines_handle_action_path, method: :post) do %>
 				<%= hidden_field_tag :vm_id, vm["vm_id"] %>
-				<div id = "collapseId?" class="panel panel-default">
+				<div id = "collapsesState<%= vm['vm_id']%>" class="panel panel-default">
 					<div class="panel-heading" style = "height: 54px;">
 						<div class="panel-title">
 							<a class="accordion-toggle" data-toggle="collapse" href="#id collapse">
 								 <i class="fa fa-angle-double-down fa-1x"></i> VMS ID: <%= vm["vm_id"] %>
 							</a>
 							<div class="pull-right">
-								<% if (vm['state'] == 1) %>Running <% end %>
+								<% if (vm['state'] == 1) %> Running <% end %>
 								<% if (vm['state'] == 0) %>Stoped <% end %>
 								<% if (vm['state'] == 2) %>Hibernate <% end %>
-								<button id="" class = "btn btn-success" data-toggle="modal" data-target="#choose-iso-<%= vm['vm_id'] %>">Start</button>
-								<input type="submit" value="Hibernate" id="" name="commit" class="btn btn-warning"/>
-								<input type="submit" value="Stop" id="" name="commit" class="btn btn-danger"/>
-								
+								<button id="start<%= vm['vm_id'] %>" class = "btn btn-success" data-toggle="modal" data-target="#choose-iso-<%= vm['vm_id'] %>">Start</button>
+								<input type="submit" value="Hibernate" id="hibernate<%= vm['vm_id'] %>" name="commit" class="btn btn-warning"/>
+								<input type="submit" value="Stop" id="stop<%= vm['vm_id'] %>" name="commit" class="btn btn-danger"/>
 							</div>
 						</div>
 					</div>
@@ -44,7 +48,7 @@
 														<% @iso_list.each do |iso| %>
 															<option value = "<%= iso['iso_id']%>"> <%= iso['iso_name']%></option>
 														<% end %>
-													</select>
+											</select>
 													<h5>Price: 	$<span id="price-<%= vm['vm_type']%>">
 																				<% ret = total_cost(vm['vm_type'], @iso_list.first['iso_id'])%>
 																				<%= ret[:ret] == 'OK' ? ret[:data] : 'error' %>
@@ -80,6 +84,8 @@
 				$('#collapsesState<%= m['vm_id']%>').removeClass('panel panel-default').addClass('panel panel-warning');
 				$('#start<%= m['vm_id']%>').attr('disabled','disabled');
 				$('#stop<%= m['vm_id']%>').attr('disabled','disabled');
+				$('#hibernate<%= m['vm_id']%>').attr('disabled','disabled');
 			}
 		<% end %>
+	});
 </script>

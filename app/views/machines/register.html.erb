@@ -1,6 +1,10 @@
 <% content_for :title, "Cloud - Register New Machine" %>
 <div class = 'pricing-root'>
-  <h3 class="page-header">Single Machines Description</h4>
+  <!-- <h3 class="page-header">Single Machines Description zzz</h4> -->
+  <ol class="breadcrumb page-header">
+	  <li><a href="/">HPCC Cloud</a></li>
+	  <li class="active">Register New Machine</li>
+	</ol>
   <div class="container-fluid">
     <div class="row-fluid">
     	<% unless @vm_list.empty? %>
@@ -28,21 +32,21 @@
 						    <div class="modal-content">
 						      <div class="modal-header">
 						        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-						        <h4 class="modal-title" id="myModalLabel">Options</h4>
+						        <h4 class="modal-title" id="myModalLabel">Choose Machine Type</h4>
 						      </div>
 						      <div class="modal-body">
 						      	<div class = "row-fluid">
-						      		<div class="row">
-						      			<h5><%= radio_button_tag :machine_type, 1, checked: true %> Single
-						      			</h5>
-						      		</div>
-						      		<div class="row">
-												<h5>
-													<%= radio_button_tag :machine_type, 2 %> Group
-													<%= number_field_tag :group_num, 2, in: 1...10%>
-												</h5>
-						      		</div>
-							        <%= text_field_tag :group_name, "", { placeholder: "Group Name",class: "form-control",size: 10, maxlength: 10} %>
+						      			<div class = "col-md-6" >
+						      				<p class = ""><%= radio_button_tag :machine_type, 1, checked: true %> Single</p>
+						      			</div>
+						      			<div class = "col-md-6">
+						      				<p class = "pull-left"><%= radio_button_tag :machine_type, 2 %> Group</p>
+						      				<br />	
+						      				<div class = "pull-right groupOption">
+						      					Number: <%= number_field_tag :group_num, 2, in: 1...10, :class => "form-control bfh-number"%>
+												<%= text_field_tag :group_name, "", { placeholder: "Group Name",class: "form-control",size: 10, maxlength: 10} %>
+						      				</div>
+						      			</div>
 						      	</div>
 						        
 						      </div>
@@ -62,4 +66,22 @@
 			<% end %>
   	</div><!--row-fluid-->
 	</div>
-</div
+</div>
+
+<script type="text/javascript" charset="utf-8">
+	$(document).ready(function() {
+		$('.groupOption').hide();
+	    $('input[type=radio][name=machine_type]').change(function() {
+	        if (this.value == '1') {
+	        		$('#group_num').removeAttr('required');
+	        		$('#group_name').removeAttr('required');
+	            $('.groupOption').hide(1000);
+	        }
+	        else if (this.value == '2') {
+	        		$('#group_num').attr('required', 'required');
+	        		$('#group_name').attr('required', 'required');
+	            $('.groupOption').show(1000);
+	        }
+	    });
+	});
+</script>

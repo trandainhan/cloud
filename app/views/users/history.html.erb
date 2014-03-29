@@ -1,5 +1,10 @@
 <% content_for :title, "Cloud - #{current_user_name} - History" %>
 <div>
+	<ol class="breadcrumb ">
+	  <li><a href="/">HPCC Cloud</a></li>
+	  <li><a href="/users/home"><%= current_user_name %></a></li>
+	  <li class="active">History</li>
+	</ol>
 	<h3>History</h3>
 	<table class = 'table table-striped'>
 		<tr>
