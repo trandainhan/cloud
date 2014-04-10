@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-	before_action :signed_in_user, only: [:home, :show, :edit, :update, :delete, :history]
+	before_action :signed_in_user, only: [:home, :show, :edit, :update, :delete, :history, :monitoring]
 	layout 'users_operation'
 	include FormValidationHelper
 	def new
@@ -85,7 +85,10 @@ class UsersController < ApplicationController
 	def history
 		session[:active] = 'history'
 		@logs = current_user.get_vms_logs
-		
+	end
+
+	def monitoring
+		session[:active] = 'monitoring'
 	end
 
 end
