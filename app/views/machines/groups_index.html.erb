@@ -14,7 +14,7 @@
 				<div class="panel-heading" style = "height: 54px;">
 					<div class="panel-title">
 						<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseId?">
-							 <i class="fa fa-angle-double-down fa-1x"></i> <%= g["group_name"] %>
+							 <i class="fa fa-angle-double-down fa-1x"></i> <%= g['group_name'] %>
 						</a>
 						<div class=" pull-right">
 							<% if (g['state'] == 1) %>Running <% end %>
@@ -23,6 +23,7 @@
 							<button id="start<%= g['group_id']%>" class = "btn btn-success" data-toggle="modal" data-target="#choose-iso-<%= g['group_id']%>">Start</button>
 							<input type="submit" value="Hibernate" id="hibernate<%= g['group_id']%>" name="commit" class="btn btn-warning"/>
 							<input type="submit" value="Stop" id="stop<%= g['group_id']%>" name="commit" class="btn btn-danger"/>
+							<% if g['state'] == 1 %><a href="https://172.28.182.220:10443" class="btn btn-primary" target="_blank">SSH</a><% end %>
 						</div>
 					</div>
 				</div>
@@ -31,7 +32,9 @@
 						<h3>Group Detail</h3>
 						<ul class="">
 							<li>Name: <%= g["group_name"] %></li>
-							<li>Number Of Machine: <%= g['numvms'] %></li>
+							<li>Number Of Machines: <%= g['numvms'] %></li>
+							<% hostname_list = hpcc_vms_get_vms_of_group(current_user_name, current_user_password, g['group_id'])['data'].map{ |vms| "#{vms['hostname']}.cloud.hpcc.hcmut.edu.vn" } %>
+							<li>Hostnames: <%= hostname_list.join(', ') %></li>
 						</ul>
 						<h3>Machine Detail</h3>
 						<ul class="">

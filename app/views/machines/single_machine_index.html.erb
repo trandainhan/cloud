@@ -14,7 +14,7 @@
 					<div class="panel-heading" style = "height: 54px;">
 						<div class="panel-title">
 							<a class="accordion-toggle" data-toggle="collapse" href="#id collapse">
-								 <i class="fa fa-angle-double-down fa-1x"></i> VMS ID: <%= vm["vm_id"] %>
+								 <i class="fa fa-angle-double-down fa-1x"></i> VMS Hostname: <%= "vm-#{vm['vm_id']}.cloud.hpcc.hcmut.edu.vn" %>
 							</a>
 							<div class="pull-right">
 								<% if (vm['state'] == 1) %> Running <% end %>
@@ -23,6 +23,7 @@
 								<button id="start<%= vm['vm_id'] %>" class = "btn btn-success" data-toggle="modal" data-target="#choose-iso-<%= vm['vm_id'] %>">Start</button>
 								<input type="submit" value="Hibernate" id="hibernate<%= vm['vm_id'] %>" name="commit" class="btn btn-warning"/>
 								<input type="submit" value="Stop" id="stop<%= vm['vm_id'] %>" name="commit" class="btn btn-danger"/>
+								<% if vm['state'] == 1 %><a href="https://172.28.182.220:10443" class="btn btn-primary" target="_blank">SSH</a><% end %>
 							</div>
 						</div>
 					</div>
